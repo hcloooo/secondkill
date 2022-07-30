@@ -60,10 +60,11 @@ public class SeckillController implements InitializingBean {
     windows优化前QPS 785.9
             缓存后QPS 1350
             优化后QPS 2450
-    linux又花钱QPS 170
+    linux又花前QPS 170
      */
     @RequestMapping("/doSeckill2")
     public String doSeckill2(Model model, User user, Long goodsId) {
+        System.out.println("doSeckill2");
         if(user == null) {
             return "login";
         }

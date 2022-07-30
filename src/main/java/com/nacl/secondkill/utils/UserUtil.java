@@ -24,8 +24,8 @@ public class UserUtil {
             User user = new User();
             user.setId(13000000000l + i);
             user.setNickname("user" + i);
-            user.setPassword("e3a4ca3d89ff8439458fa27e4a52106f");
-            user.setSalt("hexiangdong");
+            user.setPassword("f3fb136af3a54839ca8ab9c0edfac513");
+            user.setSalt("nacl202228");
             user.setLoginCount(0);
             users.add(user);
         }
@@ -48,8 +48,8 @@ public class UserUtil {
 //        System.out.println("插入成功");
 //        connection.close();
 //        System.out.println("放入数据库");
-        String urlString = "http://localhost:8000/login/doLogin";
-        File file = new File("C:\\Users\\86188\\Desktop\\config.txt");
+        String urlString = "http://192.168.176.112:8020/login/doLogin";
+        File file = new File("E:\\Sanqi\\offer\\secondkill资料\\config.txt");
         if (file.exists()) {
             file.delete();
         }
@@ -93,9 +93,9 @@ public class UserUtil {
 
     }
     public static Connection getConnect() throws Exception {
-        String url = "jdbc:mysql://101.132.146.181:3306/seckill?useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai";
+        String url = "jdbc:mysql://192.168.176.112:3306/seckill?useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai";
         String username = "root";
-        String password = "Hh545466093";
+        String password = "123456";
         String driver = "com.mysql.cj.jdbc.Driver";
         Class.forName(driver);
         return DriverManager.getConnection(url, username, password);
