@@ -13,6 +13,7 @@ import com.nacl.secondkill.rabbitmq.MQSender;
 import com.nacl.secondkill.service.IGoodsService;
 import com.nacl.secondkill.service.IOrderService;
 import com.nacl.secondkill.service.ISeckillOrderService;
+import com.nacl.secondkill.service.impl.SeckillOrderServiceImpl;
 import com.nacl.secondkill.vo.GoodsVo;
 import com.nacl.secondkill.vo.RespBean;
 import com.nacl.secondkill.vo.RespBeanEnum;
@@ -104,7 +105,7 @@ public class SeckillController implements InitializingBean {
             return RespBean.error(RespBeanEnum.PATH_ERROR);
         }
         //判断当前用户是否已经秒杀过
-        SeckillOrder seckillOrder = (SeckillOrder)valueOperations.get("order"+user.getId()+":"+goodsId);
+        SeckillOrder seckillOrder = (SeckillOrder)valueOperations.get("order:"+user.getId()+":"+goodsId);
         if(seckillOrder != null) {
             return RespBean.error(RespBeanEnum.HAS_SECKILL);
         }
@@ -113,7 +114,7 @@ public class SeckillController implements InitializingBean {
             return RespBean.error(RespBeanEnum.EMPTY_STOCK);
         }
         //redis预减库存
-//        Long stock = valueOperations.decrement("seckillGoods:" + goodsId);
+        //Long stock = valueOperations.decrement("seckillGoods:" + goodsId);
         //使用lua脚本
         Long stock = (Long) redisTemplate.execute(script, Collections.singletonList("seckillGoods:" + goodsId), Collections.EMPTY_LIST);
         if(stock == 0) {
@@ -141,6 +142,7 @@ public class SeckillController implements InitializingBean {
         }
     }
 
+    //前端异步轮询查询后端结果
     //查询用户秒杀的结果
     @RequestMapping("/result")
     @ResponseBody
@@ -148,16 +150,19 @@ public class SeckillController implements InitializingBean {
         if(user == null) {
             return RespBean.error(RespBeanEnum.USER_TIME_OUT);
         }
-        String key = "order" + user.getId() + ":" + goodsId;
+        String key = "order:" + user.getId() + ":" + goodsId;
         ValueOperations valueOperations = redisTemplate.opsForValue();
-        Long orderId = -1l;
-        if(valueOperations.get(key) != null) {
+        //有可能还没下单就开始查询了
+        Long orderId = 0l;
+       /* if(valueOperations.get(key) != null) {
             SeckillOrder seckillOrder = (SeckillOrder) valueOperations.get(key);
             orderId = seckillOrder.getOrderId();
-        } else if((int)valueOperations.get("seckillGoods:" + goodsId) <= 0) {
-            orderId = -1l;
         } else {
-            orderId = 0l;
+             orderId = seckillOrderService.inSeckillOrder(user.getId(), goodsId);
+        }*/
+
+        if(valueOperations.get(key) != null) {
+            orderId = seckillOrderService.inSeckillOrder(user.getId(), goodsId);
         }
         return RespBean.success(orderId);
     }

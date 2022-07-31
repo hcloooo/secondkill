@@ -48,7 +48,7 @@ public class UserUtil {
 //        System.out.println("插入成功");
 //        connection.close();
 //        System.out.println("放入数据库");
-        String urlString = "http://192.168.176.112:8020/login/doLogin";
+        String urlString = "http://127.0.0.1:8020/login/doLogin";
         File file = new File("E:\\Sanqi\\offer\\secondkill资料\\config.txt");
         if (file.exists()) {
             file.delete();

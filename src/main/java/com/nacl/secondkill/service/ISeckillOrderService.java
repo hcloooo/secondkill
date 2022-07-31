@@ -12,5 +12,6 @@ import com.nacl.secondkill.entity.SeckillOrder;
  * @since 2022-03-07
  */
 public interface ISeckillOrderService extends IService<SeckillOrder> {
-
+    //判断是否在秒杀订单表中，即添加是否成功
+    long inSeckillOrder(Long userId,String goodsId);
 }

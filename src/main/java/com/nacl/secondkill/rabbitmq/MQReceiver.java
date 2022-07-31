@@ -17,8 +17,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 public class MQReceiver {
-
-//    @RabbitListener(queues="queue")
+//    @RabbitListener(queues="naclQueue")
 //    public void receive(Object msg) {
 //        log.info("接收消息：" + msg);
 //    }

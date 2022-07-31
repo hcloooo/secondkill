@@ -44,7 +44,8 @@ public class RabbitMQTopicConfig {
 //    public Binding binding02() {
 //        return BindingBuilder.bind(queue02()).to(topicExchange()).with(ROUTINGKEY02);
 //    }
-
+//    @Bean
+//    public Queue naclQueue(){return new Queue("naclQueue");}
     @Bean
     public Queue queue() {
         return new Queue(QUEUE);

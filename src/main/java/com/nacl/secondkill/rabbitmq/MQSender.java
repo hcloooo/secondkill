@@ -59,10 +59,18 @@ public class MQSender {
 //        rabbitTemplate.convertAndSend("headerExchange", "", message);
 //    }
 
+//    public void send(String message) {
+//        log.info("发送消息：" + message);
+//        rabbitTemplate.convertAndSend("naclQueue",message);
+//    }
+
+
+
     //发送秒杀信息
     public void sendSeckillMessage(String message) {
         log.info("发送消息：" + message);
         rabbitTemplate.convertAndSend("seckillExchange", "seckill.message", message);
     }
+
 
 }
