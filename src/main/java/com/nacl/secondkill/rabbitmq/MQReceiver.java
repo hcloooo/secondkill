@@ -85,7 +85,7 @@ public class MQReceiver {
             return ;
         }
         ValueOperations valueOperations = redisTemplate.opsForValue();
-        SeckillOrder seckillOrder = (SeckillOrder)valueOperations.get("order:"+user.getId()+":"+goodsId);
+        SeckillOrder seckillOrder = (SeckillOrder)valueOperations.get("order"+user.getId()+":"+goodsId);
         if(seckillOrder != null) {
             return ;
         }

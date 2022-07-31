@@ -104,7 +104,7 @@ public class SeckillController implements InitializingBean {
             return RespBean.error(RespBeanEnum.PATH_ERROR);
         }
         //判断当前用户是否已经秒杀过
-        SeckillOrder seckillOrder = (SeckillOrder)valueOperations.get("order:"+user.getId()+":"+goodsId);
+        SeckillOrder seckillOrder = (SeckillOrder)valueOperations.get("order"+user.getId()+":"+goodsId);
         if(seckillOrder != null) {
             return RespBean.error(RespBeanEnum.HAS_SECKILL);
         }
